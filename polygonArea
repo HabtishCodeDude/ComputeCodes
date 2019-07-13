@@ -1,0 +1,39 @@
+%   Area of  polygon when the coordinates of its vertices are known (Coordinate Geometry)
+%   polyArea = polygonArea(X) is area of polygon with vertices X 
+%   X  = [x1 x2 x3 ... xn x1; 
+%           y1 y2 y3 ... yn y1], where n is number of polygon vertices
+%         |(x1*y2 - y1*x2) + (	x2* y3 - y2*x3 ) .... +  (xn*y1 - yn*x1 ) )|
+% area =  |----------------------------------------------------------------|
+%         |                                 2                              |              
+%  polyArea = polygonArea(X) returns polygon area
+%   Example: 
+%                  four vertices : (0,0), (0,1), (1,1), (1,0)
+%                  X = [x1   x2  x3  x4  x1;  y1   y2   y3  y4  y1]
+%                  X = [0     0    1    1    0;   0     1     1    0     0 ]
+%                  polyArea = polygonArea(X)
+%                  ans = 1
+
+    
+function polyArea = polygonArea(varargin)
+
+vertices = [varargin{:}];
+no_vertices = length(varargin{:});
+
+% Initialize polyArea
+polyArea = 0;
+
+% Calculate area over the vertices
+for i=1:no_vertices
+    
+    next = i + 1;
+    if next <  no_vertices
+        polyArea = polyArea + (vertices(1,i)*vertices(2,next) - vertices(2,i)*vertices(1,next));
+    else
+        polyArea = polyArea + (vertices(1,i)*vertices(2,1) - vertices(2,i)*vertices(1,1));
+    end
+    
+end
+
+polyArea = abs(polyArea/2);
+
+
